@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Input from '../../components/input'
+import { signinInit } from '../../core/actions/signin'
 
 class SignInContainer extends Component {
   constructor(props) {
@@ -28,18 +29,19 @@ class SignInContainer extends Component {
   }
 
   handleSubmit = (event) => {
-    fetch("http://localhost:3000/auth/signin", {
-      method: "POST",
-      body: {
-        email: this.state.email,
-        password: this.state.password,
-      }
-    })
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => console.log(error));
-    console.log(this.state.email + ':' + this.state.password);
+    signinInit(this.state);
+    // fetch("http://localhost:3000/auth/signin", {
+    //   method: "POST",
+    //   body: {
+    //     email: this.state.email,
+    //     password: this.state.password,
+    //   }
+    // })
+    // .then(data => {
+    //   console.log(data);
+    // })
+    // .catch(error => console.log(error));
+    // console.log(this.state.email + ':' + this.state.password);
     event.preventDefault();
   }
 
