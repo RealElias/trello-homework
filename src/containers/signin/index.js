@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Input from '../../components/input'
+import { connect } from 'react-redux'
 import { signinInit } from '../../core/actions/signin'
 
 class SignInContainer extends Component {
@@ -13,16 +14,17 @@ class SignInContainer extends Component {
     this.state = {
       email: '',
       password: '',
+      inProgress: false,
     }
   }
 
-  handlePasswordChange = (event) => {
+  handlePasswordChange(event) {
     this.setState({
       password: event.target.value
     });
   }
 
-  handleEmailChange = (event) => {
+  handleEmailChange(event) {
     this.setState({
       email: event.target.value
     });
@@ -72,4 +74,4 @@ class SignInContainer extends Component {
   }
 }
 
-export default SignInContainer;
+export default connect()(SignInContainer);

@@ -1,9 +1,9 @@
-import { SIGNIN_INIT, SIGNIN_SUCCESS, SIGNIN_FAILED } from "../../constants/actionTypes";
+import { SIGNIN_INIT, SIGNIN_SUCCESS, SIGNIN_FAILED } from "../actionTypes";
 
-export const signinInit = ({mail, password}) => ({
+export const signinInit = ({email, password}) => ({
   type: SIGNIN_INIT,
   payload: {
-    mail,
+    email,
     password
   }
 })
