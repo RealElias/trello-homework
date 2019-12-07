@@ -1,4 +1,4 @@
 import { combineReducers } from "redux"
-import signinReduces from './signinReducers'
+import signinReduces from '../auth/reducers'
 
 export default combineReducers(signinReduces);

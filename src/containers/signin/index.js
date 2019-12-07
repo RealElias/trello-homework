@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Input from '../../components/input'
 import { connect } from 'react-redux'
-import { signinInit } from '../../core/actions/signin'
+import { signinInit } from '../../core/auth/actions'
 
 class SignInContainer extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class SignInContainer extends Component {
   }
 
   handleSubmit = (event) => {
-    signinInit(this.state);
+    this.props.signinInit(this.state);
     // fetch("http://localhost:3000/auth/signin", {
     //   method: "POST",
     //   body: {
@@ -74,4 +74,8 @@ class SignInContainer extends Component {
   }
 }
 
-export default connect()(SignInContainer);
+const mapDispatchToProps = {
+  signinInit,
+}
+
+export default connect(null, mapDispatchToProps)(SignInContainer);

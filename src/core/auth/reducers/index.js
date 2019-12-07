@@ -1,4 +1,4 @@
-import { SIGNIN_INIT, SIGNIN_SUCCESS, SIGNIN_FAILED } from "../actions/actionTypes";
+import { SIGNIN_INIT, SIGNIN_SUCCESS, SIGNIN_FAILED } from "../../constants/actionTypes";
 
 const initialState = {
   token: '',
