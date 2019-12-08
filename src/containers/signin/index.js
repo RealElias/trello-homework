@@ -48,6 +48,8 @@ class SignInContainer extends Component {
   }
 
   render() {
+    console.log(this.state)
+    console.log(this.props)
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
@@ -56,6 +58,7 @@ class SignInContainer extends Component {
             type='email'
             placeholder = 'email'
             onChange={this.handleEmailChange}
+            enabled={!this.state.inProgress}
           />
         </div>
         <div>
@@ -64,6 +67,7 @@ class SignInContainer extends Component {
             type='password'
             placeholder = 'password'
             onChange={this.handlePasswordChange}
+            enabled={!this.state.inProgress}
           />
         </div>
         <div>
@@ -78,4 +82,9 @@ const mapDispatchToProps = {
   signinInit,
 }
 
-export default connect(null, mapDispatchToProps)(SignInContainer);
+function mapStateToProps(state) {
+  const { inProgress } = state
+  return { inProgress }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInContainer);

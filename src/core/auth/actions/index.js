@@ -1,4 +1,4 @@
-import { SIGNIN_INIT, SIGNIN_SUCCESS, SIGNIN_FAILED } from "../../constants/actionTypes";
+import { SIGNIN_INIT, SIGNIN_SUCCESS, SIGNIN_FAILED, SIGNUP_INIT, SIGNUP_SUCCESS, SIGNUP_FAILED } from "../../constants/actionTypes";
 
 export const signinInit = ({email, password}) => ({
   type: SIGNIN_INIT,
@@ -17,6 +17,29 @@ export const signinSuccess = (token) => ({
 
 export const signinFailed = (error) => ({
   type: SIGNIN_FAILED,
+  payload: {
+    error
+  }
+})
+
+export const signupInit = ({name, email, password}) => ({
+  type: SIGNUP_INIT,
+  payload: {
+    name,
+    email,
+    password
+  }
+})
+
+export const signupSuccess = (token) => ({
+  type: SIGNUP_SUCCESS,
+  payload: {
+    token
+  }
+})
+
+export const signupFailed = (error) => ({
+  type: SIGNUP_FAILED,
   payload: {
     error
   }
