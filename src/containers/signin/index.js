@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Input from '../../components/input'
 import { connect } from 'react-redux'
-import { signinInit } from '../../core/auth/actions'
+import { signin } from '../../middleware/auth'
 
 class SignInContainer extends Component {
   constructor(props) {
@@ -31,25 +31,11 @@ class SignInContainer extends Component {
   }
 
   handleSubmit = (event) => {
-    this.props.signinInit(this.state);
-    // fetch("http://localhost:3000/auth/signin", {
-    //   method: "POST",
-    //   body: {
-    //     email: this.state.email,
-    //     password: this.state.password,
-    //   }
-    // })
-    // .then(data => {
-    //   console.log(data);
-    // })
-    // .catch(error => console.log(error));
-    // console.log(this.state.email + ':' + this.state.password);
+    this.props.signin(this.state);
     event.preventDefault();
   }
 
   render() {
-    console.log(this.state)
-    console.log(this.props)
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
@@ -79,7 +65,7 @@ class SignInContainer extends Component {
 }
 
 const mapDispatchToProps = {
-  signinInit,
+  signin,
 }
 
 function mapStateToProps(state) {

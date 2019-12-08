@@ -1,34 +1,48 @@
-import { signinSuccess, signinFailed } from "../../core/auth/actions";
+import { signinInit, signinSuccess, signinFailed } from "../../core/auth/actions";
+import { signupInit, signupSuccess, signupFailed } from "../../core/signup/actions"
 
-function authorize({email, password}) {
+export function signin({ email, password }) {
   return function (dispatch) {
+    dispatch(signinInit({ email, password }))
     fetch("http://localhost:3000/auth/signin", {
       method: "POST",
-      body: {
+      body: JSON.stringify({
         email,
         password,
-      }
-    })
-    .then(
-      (data) => dispatch(signinSuccess(data.token)),
-      (error) => dispatch(signinFailed(error))
-    );
+      })
+    }).then((response) => {
+      response.json().then(data => {
+        console.log(data);
+        if (data.success) {
+          dispatch(signinSuccess(data));
+        } else {
+          dispatch(signinFailed(data));
+        }
+      })
+    }).catch((error) => dispatch(signinFailed(error)));
+
   }
 }
 
-// function signup() {
-//   return function (dispatch, getState) {
-//     fetch("http://localhost:3000/auth/signup", {
-//       method: "POST",
-//       body: {
-//         email: this.state.email,
-//         password: this.state.password,
-//       }
-//     })
-//       .then(data => {
-//         console.log(data);
-//       })
-//       .catch(error => console.log(error));
-//     console.log(this.state.email + ':' + this.state.password);
-//   }
-// }
+export function signup({ name, email, password }) {
+  return function (dispatch) {
+    dispatch(signupInit({ name, email, password }))
+    fetch("http://localhost:3000/auth/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      })
+    }).then((response) => {
+      response.json().then(data => {
+        console.log(data);
+        if (data.success) {
+          dispatch(signupSuccess(data));
+        } else {
+          dispatch(signupFailed(data));
+        }
+      })
+    }).catch((error) => dispatch(signupFailed(error)));
+  }
+}

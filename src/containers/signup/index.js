@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Input from '../../components/input'
+import { connect } from 'react-redux'
+import { signup } from '../../middleware/auth'
 
 class SignUpContainer extends Component {
   constructor(props) {
@@ -17,39 +19,27 @@ class SignUpContainer extends Component {
     }
   }
 
-  handlePasswordChange = (event) => {
+  handlePasswordChange(event) {
     this.setState({
       password: event.target.value
     });
   }
 
-  handleEmailChange = (event) => {
+  handleEmailChange(event) {
     this.setState({
       email: event.target.value
     });
   }
 
-  handleNameChange = (event) => {
+  handleNameChange(event) {
     this.setState({
       name: event.target.value
     })
   }
 
-  handleSubmit = (event) => {
-    fetch("http://localhost:3000/auth/signup", {
-      method: "POST",
-      body: {
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password,
-      }
-    })
-    .then(data => {
-      console.log(data);
-    })
-    .catch(error => console.log(error));
-
-    event.preventDefault();
+  handleSubmit(event) {
+    this.props.signup(this.state)
+    event.preventDefault()
   }
 
   render() {
@@ -87,4 +77,13 @@ class SignUpContainer extends Component {
   }
 }
 
-export default SignUpContainer;
+const mapDispatchToProps = {
+  signup,
+}
+
+function mapStateToProps(state) {
+  const { inProgress } = state
+  return { inProgress }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpContainer);
