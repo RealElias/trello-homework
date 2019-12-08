@@ -1,4 +1,4 @@
-import { SIGNIN_INIT, SIGNIN_SUCCESS, SIGNIN_FAILED } from "../../constants/actionTypes";
+import { SIGNIN_INIT, SIGNIN_SUCCESS, SIGNIN_FAILED, SIGNUP_INIT, SIGNUP_SUCCESS, SIGNUP_FAILED } from "../../constants/actionTypes";
 
 const initialState = {
   token: '',
@@ -20,6 +20,25 @@ const singinReducers = (state = initialState, action) => {
       }
     }
     case SIGNIN_FAILED: {
+      const { error } = action.payload;
+      return {
+        error: error,
+        inProgress: false,
+      }
+    }
+    case SIGNUP_INIT: {
+      return {
+        inProgress: true,
+      }
+    }
+    case SIGNUP_SUCCESS: {
+      const { token } = action.payload;
+      return {
+        token: token,
+        inProgress: false,
+      }
+    }
+    case SIGNUP_FAILED: {
       const { error } = action.payload;
       return {
         error: error,
