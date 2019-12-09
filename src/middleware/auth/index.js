@@ -1,4 +1,5 @@
 import { signinInit, signinSuccess, signinFailed, signupInit, signupSuccess, signupFailed } from "../../core/auth/actions";
+import LocalStorageItem from '../../core/constants/localStorageItems'
 
 export function signin({ email, password }) {
   return function (dispatch) {
@@ -10,15 +11,16 @@ export function signin({ email, password }) {
         email,
         password,
       })
-    }).then((response) => {
-      response.json().then(response => {
+    }).then((r) => {
+      r.json().then(response => {
         if (response.success) {
-          dispatch(signinSuccess(response.data));
+          localStorage.setItem(LocalStorageItem.TOKEN, response.data.token)
+          dispatch(signinSuccess(response.data))
         } else {
-          dispatch(signinFailed(response));
+          dispatch(signinFailed(response))
         }
       })
-    }).catch((error) => dispatch(signinFailed(error)));
+    }).catch((error) => dispatch(signinFailed(error)))
 
   }
 }
@@ -34,15 +36,16 @@ export function signup({ name, email, password }) {
         email,
         password,
       })
-    }).then((response) => {
-      response.json().then(data => {
-        console.log(data);
-        if (data.success) {
-          dispatch(signupSuccess(data));
+    }).then((r) => {
+      r.json().then(response => {
+        console.log(response)
+        if (response.success) {
+          localStorage.setItem(LocalStorageItem.TOKEN, response.data.token)
+          dispatch(signupSuccess(response.data))
         } else {
-          dispatch(signupFailed(data));
+          dispatch(signupFailed(response))
         }
       })
-    }).catch((error) => dispatch(signupFailed(error)));
+    }).catch((error) => dispatch(signupFailed(error)))
   }
 }

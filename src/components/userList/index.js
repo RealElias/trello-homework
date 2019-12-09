@@ -9,21 +9,21 @@ class UserList extends Component {
       return (<h1>No users found.</h1>)
     }
 
+    console.log(users)
+
     return (
       <table disabled={inProgress}>
         <thead>
-          <th>
-            <td>ID</td>
-            <td>Name</td>
-            <td>EMail</td>
-            <td>Created At</td>
-            <td>Updated At</td>
-          </th>
+          <tr>
+            <th>Name</th>
+            <th>EMail</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+          </tr>
         </thead>
         <tbody>
-          {users.map((_id, name, email, createdAt, updatedAt) => {
-            return (<tr>
-              <td>{_id}</td>
+          {users.map(({_id, name, email, createdAt, updatedAt}) => {
+            return (<tr key={_id}>
               <td>{name}</td>
               <td>{email}</td>
               <td>{createdAt}</td>

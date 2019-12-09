@@ -15,7 +15,7 @@ const usersReducers = (state = initialState, action) => {
     case ActionType.GET_USERS_SUCCESS: {
       const { users } = action.payload;
       return {
-        token: users,
+        users,
         inProgress: false,
       }
     }
