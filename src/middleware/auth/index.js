@@ -5,17 +5,17 @@ export function signin({ email, password }) {
     dispatch(signinInit({ email, password }))
     fetch("http://localhost:3000/auth/signin", {
       method: "POST",
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
         email,
         password,
       })
     }).then((response) => {
-      response.json().then(data => {
-        console.log(data);
-        if (data.success) {
-          dispatch(signinSuccess(data));
+      response.json().then(response => {
+        if (response.success) {
+          dispatch(signinSuccess(response.data));
         } else {
-          dispatch(signinFailed(data));
+          dispatch(signinFailed(response));
         }
       })
     }).catch((error) => dispatch(signinFailed(error)));
@@ -28,6 +28,7 @@ export function signup({ name, email, password }) {
     dispatch(signupInit({ name, email, password }))
     fetch("http://localhost:3000/auth/signup", {
       method: "POST",
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         name,
         email,

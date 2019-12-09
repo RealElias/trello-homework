@@ -10,7 +10,7 @@ class Input extends Component {
           value={this.props.value}
           type={this.props.type}
           placeholder={this.props.placeholder}
-          enabled={this.props.enabled ? "enabled" : ""}
+          disabled={this.props.disabled}
           onChange={this.props.onChange}
         />
       </div>

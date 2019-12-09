@@ -8,7 +8,7 @@ export const signinInit = ({email, password}) => ({
   }
 })
 
-export const signinSuccess = (token) => ({
+export const signinSuccess = ({token}) => ({
   type: SIGNIN_SUCCESS,
   payload: {
     token

@@ -38,11 +38,13 @@ class SignUpContainer extends Component {
   }
 
   handleSubmit(event) {
-    this.props.signup(this.state)
     event.preventDefault()
+
+    this.props.signup(this.state)
   }
 
   render() {
+    const { inProgress } = this.props
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
@@ -50,6 +52,7 @@ class SignUpContainer extends Component {
             value={this.state.name}
             type='text'
             placeholder = 'name'
+            disabled={inProgress}
             onChange={this.handleNameChange}
           />
         </div>
@@ -58,6 +61,7 @@ class SignUpContainer extends Component {
             value={this.state.email}
             type='email'
             placeholder = 'email'
+            disabled={inProgress}
             onChange={this.handleEmailChange}
           />
         </div>
@@ -66,6 +70,7 @@ class SignUpContainer extends Component {
             value={this.state.password}
             type='password'
             placeholder = 'password'
+            disabled={inProgress}
             onChange={this.handlePasswordChange}
           />
         </div>
@@ -82,7 +87,7 @@ const mapDispatchToProps = {
 }
 
 function mapStateToProps(state) {
-  const { inProgress } = state
+  const { inProgress } = state.auth
   return { inProgress }
 }
 
