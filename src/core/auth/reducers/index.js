@@ -1,44 +1,44 @@
-import { SIGNIN_INIT, SIGNIN_SUCCESS, SIGNIN_FAILED, SIGNUP_INIT, SIGNUP_SUCCESS, SIGNUP_FAILED } from "../../constants/actionTypes";
+import ActionType from "../../constants/actionTypes";
 
 const initialState = {
   token: '',
   inProgress: false,
 }
 
-const singinReducers = (state = initialState, action) => {
+const authReducers = (state = initialState, action) => {
   switch (action.type) {
-    case SIGNIN_INIT: {
+    case ActionType.SIGNIN_INIT: {
       return {
         inProgress: true,
       }
     }
-    case SIGNIN_SUCCESS: {
+    case ActionType.SIGNIN_SUCCESS: {
       const { token } = action.payload;
       return {
         token: token,
         inProgress: false,
       }
     }
-    case SIGNIN_FAILED: {
+    case ActionType.SIGNIN_FAILED: {
       const { error } = action.payload;
       return {
         error: error,
         inProgress: false,
       }
     }
-    case SIGNUP_INIT: {
+    case ActionType.SIGNUP_INIT: {
       return {
         inProgress: true,
       }
     }
-    case SIGNUP_SUCCESS: {
+    case ActionType.SIGNUP_SUCCESS: {
       const { token } = action.payload;
       return {
         token: token,
         inProgress: false,
       }
     }
-    case SIGNUP_FAILED: {
+    case ActionType.SIGNUP_FAILED: {
       const { error } = action.payload;
       return {
         error: error,
@@ -51,4 +51,4 @@ const singinReducers = (state = initialState, action) => {
   }
 }
 
-export default singinReducers;
+export default authReducers;

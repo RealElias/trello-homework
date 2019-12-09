@@ -30,8 +30,9 @@ class SignInContainer extends Component {
     });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit(event) {
     event.preventDefault();
+    
     this.props.signin(this.state);
   }
 
