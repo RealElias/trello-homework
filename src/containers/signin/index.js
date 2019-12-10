@@ -63,6 +63,9 @@ class SignInContainer extends Component {
         <div>
           <button>Sign In</button>
         </div>
+        <div>
+          <a href='/sign-up'>First time, huh?</a>
+        </div>
       </form>
     )
   }
