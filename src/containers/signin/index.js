@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { withRouter } from "react-router-dom";
+
 import Input from '../../components/input'
 import { connect } from 'react-redux'
 import { signin } from '../../middleware/auth'
@@ -33,7 +35,7 @@ class SignInContainer extends Component {
   handleSubmit(event) {
     event.preventDefault();
     
-    this.props.signin(this.state);
+    this.props.signin(this.state, this.props.history);
   }
 
   render() {
@@ -75,4 +77,4 @@ function mapStateToProps(state) {
   return { inProgress }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignInContainer));

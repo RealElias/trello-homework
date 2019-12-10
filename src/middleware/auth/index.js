@@ -1,7 +1,7 @@
 import { signinInit, signinSuccess, signinFailed, signupInit, signupSuccess, signupFailed } from "../../core/auth/actions";
 import LocalStorageItem from '../../core/constants/localStorageItems'
 
-export function signin({ email, password }) {
+export function signin({ email, password }, history) {
   return function (dispatch) {
     dispatch(signinInit({ email, password }))
     fetch("http://localhost:3000/auth/signin", {
@@ -16,6 +16,7 @@ export function signin({ email, password }) {
         if (response.success) {
           localStorage.setItem(LocalStorageItem.TOKEN, response.data.token)
           dispatch(signinSuccess(response.data))
+          history.push('/')
         } else {
           dispatch(signinFailed(response))
         }
@@ -25,7 +26,7 @@ export function signin({ email, password }) {
   }
 }
 
-export function signup({ name, email, password }) {
+export function signup({ name, email, password }, history) {
   return function (dispatch) {
     dispatch(signupInit({ name, email, password }))
     fetch("http://localhost:3000/auth/signup", {
@@ -42,6 +43,7 @@ export function signup({ name, email, password }) {
         if (response.success) {
           localStorage.setItem(LocalStorageItem.TOKEN, response.data.token)
           dispatch(signupSuccess(response.data))
+          history.push('/')
         } else {
           dispatch(signupFailed(response))
         }

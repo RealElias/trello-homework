@@ -1,18 +1,45 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+
 import SignInContainer from './containers/signin';
 import SignUpContainer from './containers/signup';
 import HomeContainer from './containers/home'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import LocalStorageItem from './core/constants/localStorageItems'
+
+import './App.css';
+
+function AuthorizedRoute({...props}) {
+  const token = localStorage.getItem(LocalStorageItem.TOKEN)
+  console.log("auth: " + token)
+  if (token) {
+    return <Route {...props} />
+  }
+
+  return (
+    <Redirect to='/sign-in'/>
+  )
+}
+
+function UnauthorizedRoute({...props}) {
+  const token = localStorage.getItem(LocalStorageItem.TOKEN)
+  console.log("unauth: " + token)
+  if (!token) {
+    return <Route {...props} />
+  }
+
+  return (
+    <Redirect to='/'/>
+  )
+}
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Switch>
-          <Route exact path='/home' component={HomeContainer} />
-          <Route exact path='/sign-in' component={SignInContainer} />
-          <Route exact path='/sign-up' component={SignUpContainer} />
+          <AuthorizedRoute exact path='/' component={HomeContainer} />
+          <UnauthorizedRoute exact path='/sign-in' component={SignInContainer} />
+          <UnauthorizedRoute exact path='/sign-up' component={SignUpContainer} />
         </Switch>
       </BrowserRouter>
     </div>

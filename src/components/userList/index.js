@@ -9,8 +9,6 @@ class UserList extends Component {
       return (<h1>No users found.</h1>)
     }
 
-    console.log(users)
-
     return (
       <table disabled={inProgress}>
         <thead>
