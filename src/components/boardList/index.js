@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import BoardPreview from '../../components/boardPreview'
+
 class BoardList extends Component {
 
   render() {
@@ -10,28 +12,14 @@ class BoardList extends Component {
     }
 
     return (
-      <table disabled={inProgress}>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Users</th>
-            <th>Columns</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-          </tr>
-        </thead>
-        <tbody>
-          {boards.map(({_id, title, users, columns, createdAt, updatedAt}) => {
-            return (<tr key={_id}>
-              <td>{title}</td>
-              <td>{users}</td>
-              <td>{columns}</td>
-              <td>{createdAt}</td>
-              <td>{updatedAt}</td>
-            </tr>)
-          })}
-        </tbody>
-      </table>
+      <ul disabled={inProgress}>
+        {boards.map(({_id, title}) => {
+          return (<BoardPreview
+             id={_id}
+             title={title}
+          />)
+        })}
+      </ul>
     )
   }
 }
