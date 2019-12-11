@@ -6,14 +6,13 @@ import { connect } from 'react-redux'
 import Input from '../../components/input';
 import Button from '../../components/button';
 import { saveBoard } from '../../middleware/boards'
+import { closeBoardEditor } from '../../core/boards/actions'
 
 class BoardEditor extends Component {
 
   constructor(props) {
     super(props)
     this.handleTitleChange = this.handleTitleChange.bind(this)
-    this.handleCancel = this.handleCancel.bind(this)
-    this.handleSaveBoard = this.handleSaveBoard.bind(this)
 
     this.state = {
       id: props.id,
@@ -29,25 +28,10 @@ class BoardEditor extends Component {
     });
   }
 
-  handleCancel() {
-    this.setState({
-      showEditor: false,
-    });
-  }
-
-  handleSaveBoard(event) {
-    event.preventDefault();
-
-    this.props.saveBoard(this.props);
-  }
-
   render() {
-    const { inProgress } = this.props
-    const { showEditor, title } = this.state
-    console.log("editor render: ", { 
-      fromProps: this.props.showEditor, 
-      fromState: this.state.showEditor 
-    })
+    const { showEditor, inProgress, closeBoardEditor, saveBoard } = this.props
+    const { title } = this.state
+
     return (
       <ReactModal isOpen={showEditor} >
         <Input
@@ -59,12 +43,12 @@ class BoardEditor extends Component {
         <Button
           value='Save'
           disabled={inProgress}
-          onClick={this.handleSaveBoard}
+          onClick={() => saveBoard(this.state)}
         />
         <Button
           value='Cancel'
           disabled={inProgress}
-          onClick={this.handleCancel}
+          onClick={closeBoardEditor}
         />
       </ReactModal>
     )
@@ -81,7 +65,8 @@ BoardEditor.defaultProps = {
 }
 
 const mapDispatchToProps = {
-  saveBoard,
+    saveBoard,
+    closeBoardEditor,
 }
 
 function mapStateToProps(state) {

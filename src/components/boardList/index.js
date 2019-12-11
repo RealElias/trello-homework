@@ -14,7 +14,7 @@ class BoardList extends Component {
     return (
       <ul disabled={inProgress}>
         {boards.map(({_id, title}) => {
-          return (<BoardPreview
+          return (<BoardPreview key={_id}
              id={_id}
              title={title}
           />)

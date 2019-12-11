@@ -18,12 +18,8 @@ export const getBoardsFailed = ({ message }) => ({
   }
 })
 
-export const saveBoardInit = ({ id, title }) => ({
+export const saveBoardInit = () => ({
   type: ActionType.SAVE_BOARD_INIT,
-  payload: {
-    id,
-    title,
-  }
 })
 
 export const saveBoardSuccess = ({ board }) => ({

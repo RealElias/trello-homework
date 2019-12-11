@@ -22,17 +22,18 @@ export function getBoards() {
   }
 }
 
-export function saveBoard(board) {
-  if (board._id) {
-    updateBoard(board)
-  } else {
-    createBoard(board)
-  }
+export function saveBoard({ id, title }) {
+  console.log(id, title)
+  if (id) {
+    return updateBoard(id, title)
+   } else {
+    return createBoard(title)
+   }
 }
 
-function updateBoard({ id, title}) {
+function updateBoard(id, title) {
   return function (dispatch) {
-    dispatch(saveBoardInit(id, title))
+    dispatch(saveBoardInit())
     const token = localStorage.getItem(LocalStorageItem.TOKEN)
 
     fetch("http://localhost:3000/boards/" + id, {
@@ -56,7 +57,7 @@ function updateBoard({ id, title}) {
   }
 }
 
-function createBoard({ title }) {
+function createBoard(title) {
   return function (dispatch) {
     dispatch(saveBoardInit())
     const token = localStorage.getItem(LocalStorageItem.TOKEN)

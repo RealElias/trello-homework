@@ -5,13 +5,13 @@ import { getBoards } from '../../middleware/boards'
 import BoardList from '../../components/boardList';
 import Button from '../../components/button'
 import BoardEditor from '../boardEditor';
+import { openBoardEditor } from '../../core/boards/actions'
 
 class HomeContainer extends Component {
   constructor(props) {
     super(props)
 
     this.onGetBoardsClick = this.onGetBoardsClick.bind(this)
-    this.onNewBoardClick = this.onNewBoardClick.bind(this)
 
     this.state = {
       boards: [],
@@ -25,39 +25,30 @@ class HomeContainer extends Component {
 
     this.props.getBoards()
   }
-  
-  onNewBoardClick() {
-    console.log("click")
-    this.setState({
-      showEditor: true
-    })
-  }
 
   render() {
-    const { boards, inProgress } = this.props
-    const { showEditor } = this.state
+    const { boards, inProgress, showEditor, openBoardEditor } = this.props
 
-    console.log(inProgress, showEditor)
     return (
       <div>
         <BoardList
           boards={boards}
           inProgress={inProgress}
         />
-        <BoardEditor 
+        <BoardEditor
           showEditor={showEditor}
           title=''
           inProgress={inProgress}
         />
-        <Button 
+        <Button
           value='Refresh Boards'
           disabled={inProgress}
           onClick={this.onGetBoardsClick}
         />
-        <Button 
+        <Button
           value='New Board'
           disabled={inProgress}
-          onClick={this.onNewBoardClick}
+          onClick={openBoardEditor}
         />
       </div>
     )
@@ -65,7 +56,8 @@ class HomeContainer extends Component {
 }
 
 const mapDispatchToProps = {
-  getBoards,
+    getBoards,
+    openBoardEditor,
 }
 
 function mapStateToProps(state) {

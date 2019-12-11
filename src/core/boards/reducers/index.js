@@ -39,11 +39,13 @@ const boardsReducers = (state = initialState, action) => {
     }
     case ActionType.SAVE_BOARD_INIT: {
       return {
+        showEditor: true,
         inProgress: true,
       }
     }
     case ActionType.SAVE_BOARD_SUCCESS: {
       const { board } = action.payload;
+      console.log(board);
       return {
         board,
         inProgress: false,

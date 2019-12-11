@@ -6,10 +6,10 @@ class BoardPreview extends Component {
   render() {
     const { id, title } = this.props;
     return (
-      <div class='boardPreview'>
+      <div className='boardPreview'>
         <a href={'/board/' + id}>
           <div id='title'>{title}</div>
-        </a>
+        </a>  
       </div>
     )
   }
