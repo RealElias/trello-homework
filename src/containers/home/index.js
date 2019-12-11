@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import connect from '../../core/store/connector'
 
 import { getBoards } from '../../middleware/boards'
 import BoardList from '../../components/boardList';
