@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import SignInContainer from './containers/signin';
 import SignUpContainer from './containers/signup';
 import HomeContainer from './containers/home'
+import BoardContainer from './containers/board'
 import LocalStorageItem from './core/constants/localStorageItems'
 
 import './App.css';
@@ -37,6 +38,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Switch>
+          <AuthorizedRoute path='/board/:id' component={BoardContainer} />
           <AuthorizedRoute exact path='/' component={HomeContainer} />
           <UnauthorizedRoute exact path='/sign-in' component={SignInContainer} />
           <UnauthorizedRoute exact path='/sign-up' component={SignUpContainer} />

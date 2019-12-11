@@ -27,6 +27,25 @@ const boardsReducers = (state = initialState, action) => {
         inProgress: false,
       }
     }
+    case ActionType.GET_BOARD_INIT: {
+      return {
+        inProgress: true,
+      }
+    }
+    case ActionType.GET_BOARD_SUCCESS: {
+      const { board } = action.payload
+      return {
+        board,
+        inProgress: false,
+      }
+    }
+    case ActionType.GET_BOARD_FAILED: {
+      const { error } = action.payload;
+      return {
+        error: error,
+        inProgress: false,
+      }
+    }
     case ActionType.OPEN_BOARD_EDITOR: {
       return {
         showEditor: true,

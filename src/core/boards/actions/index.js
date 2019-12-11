@@ -18,6 +18,24 @@ export const getBoardsFailed = ({ message }) => ({
   }
 })
 
+export const getBoardInit = () => ({
+  type: ActionType.GET_BOARD_INIT,
+})
+
+export const getBoardSuccess = (board) => ({
+  type: ActionType.GET_BOARD_SUCCESS,
+  payload: {
+    board,
+  }
+})
+
+export const getBoardFailed = ({ message }) => ({
+  type: ActionType.GET_BOARD_FAILED,
+  payload: {
+    error: message,
+  }
+})
+
 export const saveBoardInit = () => ({
   type: ActionType.SAVE_BOARD_INIT,
 })
@@ -31,6 +49,24 @@ export const saveBoardSuccess = ({ board }) => ({
 
 export const saveBoardFailed = ({ message }) => ({
   type: ActionType.SAVE_BOARD_FAILED,
+  payload: {
+    error: message,
+  }
+})
+
+export const deleteBoardInit = () => ({
+  type: ActionType.DELETE_BOARD_INIT,
+})
+
+export const deleteBoardSuccess = ({ board }) => ({
+  type: ActionType.DELETE_BOARD_SUCCESS,
+  payload: {
+    board,
+  }
+})
+
+export const deleteBoardFailed = ({ message }) => ({
+  type: ActionType.DELETE_BOARD_FAILED,
   payload: {
     error: message,
   }

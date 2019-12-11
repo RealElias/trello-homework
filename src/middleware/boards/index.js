@@ -1,4 +1,9 @@
-import { getBoardsInit, getBoardsSuccess, getBoardsFailed, saveBoardInit, saveBoardSuccess, saveBoardFailed } from '../../core/boards/actions'
+import {
+  getBoardsInit, getBoardsSuccess, getBoardsFailed,
+  getBoardInit, getBoardSuccess, getBoardFailed,
+  saveBoardInit, saveBoardSuccess, saveBoardFailed,
+  deleteBoardInit, deleteBoardSuccess, deleteBoardFailed
+} from '../../core/boards/actions'
 import LocalStorageItem from '../../core/constants/localStorageItems'
 
 export function getBoards() {
@@ -22,13 +27,34 @@ export function getBoards() {
   }
 }
 
+export function getBoard(id) {
+  return function (dispatch) {
+    dispatch(getBoardInit())
+    const token = localStorage.getItem(LocalStorageItem.TOKEN)
+
+    fetch("http://localhost:3000/boards/" + id, {
+      method: "GET",
+      headers: { authorization: token },
+    }).then((r) => {
+      r.json().then(response => {
+        if (response.success) {
+          dispatch(getBoardSuccess(response.data));
+        } else {
+          dispatch(getBoardFailed(response));
+        }
+      })
+    }).catch((error) => dispatch(getBoardFailed(error)));
+
+  }
+}
+
 export function saveBoard({ id, title }) {
   console.log(id, title)
   if (id) {
     return updateBoard(id, title)
-   } else {
+  } else {
     return createBoard(title)
-   }
+  }
 }
 
 function updateBoard(id, title) {
@@ -38,9 +64,9 @@ function updateBoard(id, title) {
 
     fetch("http://localhost:3000/boards/" + id, {
       method: "PUT",
-      headers: { 
+      headers: {
         authorization: token,
-        'Content-Type': 'application/json', 
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         title,
@@ -64,8 +90,8 @@ function createBoard(title) {
 
     fetch("http://localhost:3000/boards", {
       method: "POST",
-      headers: { 
-        authorization: token, 
+      headers: {
+        authorization: token,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -74,11 +100,34 @@ function createBoard(title) {
     }).then((r) => {
       r.json().then(response => {
         if (response.success) {
-          dispatch(saveBoardSuccess(response.data));
+          dispatch(saveBoardSuccess(response.data))
         } else {
-          dispatch(saveBoardFailed(response));
+          dispatch(saveBoardFailed(response))
         }
       })
-    }).catch((error) => dispatch(saveBoardFailed(error)));
+    }).catch((error) => dispatch(saveBoardFailed(error)))
+  }
+}
+
+export function deleteBoard(id) {
+  return function (dispatch) {
+    dispatch(deleteBoardInit())
+    const token = localStorage.getItem(LocalStorageItem.TOKEN)
+
+    fetch("http://localhost:3000/boards/" + id, {
+      method: "DELETE",
+      headers: {
+        authorization: token,
+        'Content-Type': 'application/json',
+      },
+    }).then((r) => {
+      r.json().then(response => {
+        if (response.success) {
+          dispatch(deleteBoardSuccess());
+        } else {
+          dispatch(deleteBoardFailed(response));
+        }
+      })
+    }).catch((error) => dispatch(deleteBoardFailed(error)));
   }
 }
