@@ -1,37 +1,38 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getUsers } from '../../middleware/users'
-import UserList from '../../components/userList';
+
+import { getBoards } from '../../middleware/boards'
+import BoardList from '../../components/boardList';
 
 class HomeContainer extends Component {
   constructor(props) {
     super(props)
 
-    this.onGetUsersClick = this.onGetUsersClick.bind(this)
+    this.onGetBoardsClick = this.onGetBoardsClick.bind(this)
 
     this.state = {
-      users: [],
+      boards: [],
       inProgress: false,
     }
   }
 
-  onGetUsersClick(event) {
+  onGetBoardsClick(event) {
     event.preventDefault()
 
-    this.props.getUsers()
+    this.props.getBoards()
   }
 
   render() {
-    const { users, inProgress } = this.props;
+    const { boards, inProgress } = this.props;
     return (
       <div>
-        <UserList
-          users={users}
+        <BoardList
+          boards={boards}
           inProgress={inProgress}
         />
         <br />
         <div>
-          <button onClick={this.onGetUsersClick}>Get Users</button>
+          <button onClick={this.onGetBoardsClick}>Get Boards</button>
         </div>
       </div>
     )
@@ -39,12 +40,12 @@ class HomeContainer extends Component {
 }
 
 const mapDispatchToProps = {
-  getUsers,
+  getBoards,
 }
 
 function mapStateToProps(state) {
-  const { inProgress, users } = state.users
-  return { inProgress, users }
+  const { inProgress, boards } = state.boards
+  return { inProgress, boards }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

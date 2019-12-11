@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 
 import Input from '../../components/input'
-import { connect } from 'react-redux'
+import connect from '../../core/store/connector'
 import { signup } from '../../middleware/auth'
 
 class SignUpContainer extends Component {
