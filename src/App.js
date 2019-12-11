@@ -10,7 +10,7 @@ import './App.css';
 
 function AuthorizedRoute({...props}) {
   const token = localStorage.getItem(LocalStorageItem.TOKEN)
-  console.log("auth: " + token)
+
   if (token) {
     return <Route {...props} />
   }
@@ -22,7 +22,7 @@ function AuthorizedRoute({...props}) {
 
 function UnauthorizedRoute({...props}) {
   const token = localStorage.getItem(LocalStorageItem.TOKEN)
-  console.log("unauth: " + token)
+
   if (!token) {
     return <Route {...props} />
   }

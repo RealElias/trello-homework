@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
 
 import Input from '../../components/input'
-import { connect } from 'react-redux'
+import connect from '../../core/store/connector'
 import { signin } from '../../middleware/auth'
 
 class SignInContainer extends Component {
@@ -71,8 +71,8 @@ class SignInContainer extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  signin,
+function mapDispatchToProps() {
+  return { signin }
 }
 
 function mapStateToProps(state) {
