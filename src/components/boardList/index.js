@@ -6,20 +6,22 @@ import BoardPreview from '../../components/boardPreview'
 class BoardList extends Component {
 
   render() {
-    let { boards, inProgress } = this.props
+    let { boards, inProgress, onEditClick, onDeleteClick } = this.props
     if (boards.length === 0) {
       return (<h1>No boards found.</h1>)
     }
 
     return (
-      <ul disabled={inProgress}>
+      <div disabled={inProgress}>
         {boards.map(({_id, title}) => {
           return (<BoardPreview key={_id}
              id={_id}
              title={title}
+             onEditClick={onEditClick(_id)}
+             onDeleteClick={onDeleteClick(_id)}
           />)
         })}
-      </ul>
+      </div>
     )
   }
 }

@@ -1,4 +1,4 @@
-import { signinInit, signinSuccess, signinFailed, signupInit, signupSuccess, signupFailed } from "../../core/auth/actions";
+import { signinInit, signinSuccess, signinFailed, signupInit, signupSuccess, signupFailed, signoutInit, signoutSuccess } from "../../core/auth/actions";
 import LocalStorageItem from '../../core/constants/localStorageItems'
 
 export function signin({ email, password }, history) {
@@ -49,5 +49,13 @@ export function signup({ name, email, password }, history) {
         }
       })
     }).catch((error) => dispatch(signupFailed(error)))
+  }
+}
+
+export function signout() {
+  return function(dispatch) {
+    dispatch(signoutInit())
+    localStorage.removeItem(LocalStorageItem.TOKEN)
+    dispatch(signoutSuccess())
   }
 }

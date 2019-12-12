@@ -44,3 +44,11 @@ export const signupFailed = ({message}) => ({
     error: message
   }
 })
+
+export const signoutInit = () => ({
+  type: ActionType.SIGNOUT_INIT,
+})
+
+export const signoutSuccess = () => ({
+  type: ActionType.SIGNOUT_SUCCESS,
+})

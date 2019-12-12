@@ -11,6 +11,7 @@ const boardsReducers = (state = initialState, action) => {
     case ActionType.GET_BOARDS_INIT: {
       return {
         inProgress: true,
+        ...state,
       }
     }
     case ActionType.GET_BOARDS_SUCCESS: {
@@ -25,11 +26,13 @@ const boardsReducers = (state = initialState, action) => {
       return {
         error: error,
         inProgress: false,
+        ...state,
       }
     }
     case ActionType.GET_BOARD_INIT: {
       return {
         inProgress: true,
+        ...state,
       }
     }
     case ActionType.GET_BOARD_SUCCESS: {
@@ -37,6 +40,7 @@ const boardsReducers = (state = initialState, action) => {
       return {
         board,
         inProgress: false,
+        ...state,
       }
     }
     case ActionType.GET_BOARD_FAILED: {
@@ -44,29 +48,35 @@ const boardsReducers = (state = initialState, action) => {
       return {
         error: error,
         inProgress: false,
+        ...state,
       }
     }
     case ActionType.OPEN_BOARD_EDITOR: {
       return {
         showEditor: true,
+        ...state,
       }
     }
     case ActionType.CLOSE_BOARD_EDITOR: {
       return {
+        ...state,
         showEditor: false,
       }
     }
     case ActionType.SAVE_BOARD_INIT: {
       return {
+        ...state,
         showEditor: true,
         inProgress: true,
       }
     }
     case ActionType.SAVE_BOARD_SUCCESS: {
       const { board } = action.payload;
-      console.log(board);
+      let boards = state.boards;
+      boards[indexById(boards, board)] = board; 
       return {
-        board,
+        boards,
+        showEditor: false,
         inProgress: false,
       }
     }
@@ -75,12 +85,20 @@ const boardsReducers = (state = initialState, action) => {
       return {
         error: error,
         inProgress: false,
+        ...state,
       }
     }
     default: {
       return state;
     }
   }
+}
+
+function indexById(boards, board) {
+  for (let i = 0; i < boards.length; i++) {
+    if(boards[i]._id === board._id) return i
+  }
+  return boards.length;
 }
 
 export default boardsReducers;

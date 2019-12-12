@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Button from '../button';
 
 class BoardPreview extends Component {
 
   render() {
-    const { id, title } = this.props;
+    const { id, title, onEditClick, onDeleteClick } = this.props;
     return (
       <div className='boardPreview'>
         <a href={'/board/' + id}>
           <div id='title'>{title}</div>
-        </a>  
+        </a>
+        {/* <Button 
+          value='Edit'
+          onClick={onEditClick}
+        />
+        <Button 
+          value='Delete'
+          onClick={onDeleteClick}
+        /> */}
       </div>
     )
   }

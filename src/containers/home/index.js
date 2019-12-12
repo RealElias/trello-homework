@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import connect from '../../core/store/connector'
 
-import { getBoards } from '../../middleware/boards'
+import { getBoards, deleteBoard } from '../../middleware/boards'
+import { signout } from '../../middleware/auth'
 import BoardList from '../../components/boardList';
 import Button from '../../components/button'
 import BoardEditor from '../boardEditor';
@@ -12,6 +13,7 @@ class HomeContainer extends Component {
     super(props)
 
     this.onGetBoardsClick = this.onGetBoardsClick.bind(this)
+    this.onEditClick = this.onEditClick.bind(this)
 
     this.state = {
       boards: [],
@@ -20,20 +22,44 @@ class HomeContainer extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.getBoards()
+  }
+
   onGetBoardsClick(event) {
     event.preventDefault()
 
     this.props.getBoards()
   }
 
+  onEditClick(id) {
+    return function() {
+      console.log(id);
+    }
+  }
+
+  onDeleteClick(id) {
+    return function() {
+      deleteBoard(id);
+    }
+  }
+
   render() {
-    const { boards, inProgress, showEditor, openBoardEditor } = this.props
+    const { 
+      boards, 
+      inProgress, 
+      showEditor, 
+      openBoardEditor, 
+      signout, 
+    } = this.props
 
     return (
       <div>
         <BoardList
           boards={boards}
           inProgress={inProgress}
+          onEditClick={this.onEditClick}
+          onDeleteClick={this.onDeleteClick}
         />
         <BoardEditor
           showEditor={showEditor}
@@ -50,6 +76,12 @@ class HomeContainer extends Component {
           disabled={inProgress}
           onClick={openBoardEditor}
         />
+        <br />
+        <Button
+          value='Logout'
+          disabled={inProgress}
+          onClick={signout}
+        />
       </div>
     )
   }
@@ -57,7 +89,9 @@ class HomeContainer extends Component {
 
 const mapDispatchToProps = {
     getBoards,
+    deleteBoard,
     openBoardEditor,
+    signout,
 }
 
 function mapStateToProps(state) {

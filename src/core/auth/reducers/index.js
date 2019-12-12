@@ -45,6 +45,16 @@ const authReducers = (state = initialState, action) => {
         inProgress: false,
       }
     }
+    case ActionType.SIGNOUT_INIT: {
+      return {
+        inProgress: true,
+      }
+    }
+    case ActionType.SIGNOUT_SUCCESS: {
+      return {
+        inProgress: false,
+      }
+    }
     default: {
       return state;
     }
